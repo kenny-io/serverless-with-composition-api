@@ -9,8 +9,20 @@
 </template>
 
 <script>
+import { reactive, ref } from 'vue'
 export default {
   name: 'Registration',
+
+  setup(){
+
+    const formData = reactive({
+      name: "",
+      email: "",
+      track: ""
+    })
+
+    const plan = ref(2)
+  }
 }
 </script>
 
