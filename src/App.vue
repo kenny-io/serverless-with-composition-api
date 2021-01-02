@@ -15,8 +15,7 @@ export default {
 
 <style>
 #app {
-font-family: 'Noto Sans JP', sans-serif;
-font-family: 'Hanalei Fill', cursive;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
