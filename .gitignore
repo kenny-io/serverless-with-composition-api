@@ -23,7 +23,8 @@ pnpm-debug.log*
 *.sw?
 
 # Dependency files
-*.json
+package-lock.json
+
 
 
 # Local Netlify folder

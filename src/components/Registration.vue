@@ -1,32 +1,35 @@
 <template>
-  <div class="hello">
-    <h1>Register to attend!</h1>
+  <div>
+    <h1>Let's JAM in Space!</h1>
     <p>
-      One time registeration for the upcoming Jamstack conference in space! <br> <br>
-      Todo: Show registeration form below
+      Register for the upcoming Jamstack conference in space! <br>
+        <strong>Free </strong>for one and <strong>$5 </strong> for 2+ tickets
     </p>
+    <p>TODO: Edit src/components/Register to show registration form</p>
+    <!-- Set up registration form here -->
   </div>
 </template>
 
 <script>
-import { reactive, ref } from 'vue'
+import { reactive } from 'vue'
 export default {
-  name: 'Registration',
-
   setup(){
-
     const formData = reactive({
+      // update to match your form fields
       name: "",
       email: "",
       track: ""
     })
-
-    const plan = ref(2)
+    return{
+      formData
+    }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+p{
+  font-family: 'Source Code Pro', monospace;
+}
 </style>
