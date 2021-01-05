@@ -7,11 +7,11 @@
     </p>
 
     <form class="form">
-      <label id="id" for="name" > Name </label>
-      <input class="fields" v-model="name" placeholder="Enter your name" />
+      <label for="name" > Name </label>
+      <input id="name" class="fields" v-model="name" placeholder="Enter your name" />
      
       <label for="email" > Email </label>
-      <input class="fields" v-model="email" placeholder="Enter your email"  />
+      <input id="email" class="fields" v-model="email" placeholder="Enter your email"  />
       
  
       <label for="track"> Select track </label>
@@ -46,9 +46,8 @@
 </template>
 
 <script>
-import { reactive, ref, toRefs, watch } from 'vue'
+import { reactive, ref, toRefs, watch, computed } from 'vue'
 export default {
-
   setup(){
     // reactive
     const formData = reactive({
@@ -60,7 +59,6 @@ export default {
       price: 0
       
     })
-
     // ref
     const options =  ref(["Web", "Mobile", "AI"])
     const  mobileTrackOptions = ref(["iOS", "Android", "Hybrid"])
@@ -79,23 +77,14 @@ export default {
         console.log(body);
         isUserRegistered.value = true
       })
-
     }
-
-  // Silly example to demonstrate how watchers work with reactive objects
-      // watch(() => formData.tracks, (cv, ov) =>{
-      //   if(cv === "Mobile") {
-      //     formData.isMobile = true
-      //   }
-      // })
-
+  
     watch(() =>formData.tickets, (currentValue) =>{
-      if(currentValue > 1) {
-        console.log(currentValue);
-        formData.price = 5
+      if(currentValue > 1 ) {
+        const totalPrice = computed(() => formData.price + 5)
+        formData.price = totalPrice.value
       }
     })
-
     return{
       ...toRefs(formData),
       options,
@@ -117,7 +106,6 @@ export default {
   margin-top: 1rem;
   text-align: left;
 }
-
 .fields{
   padding: .5rem;
   display: block;
@@ -129,7 +117,7 @@ export default {
 .btn{
   background-color: rgb(57, 175, 63) ;
   color: #f7f7f7;
-   font-family: 'Source Code Pro', monospace;
+  font-family: 'Source Code Pro', monospace;
   padding: .5rem;
   width: 20vw;
   margin: .5rem;
@@ -139,10 +127,6 @@ export default {
 label{
   margin: .5rem;
 }
-/* .options{
-  padding: 2rem;
-  height: 3rem;
-} */
 .fields::-webkit-input-placeholder {
 font-family: 'Source Code Pro', monospace;
 }

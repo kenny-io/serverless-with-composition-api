@@ -1,15 +1,12 @@
 exports.handler = async(event, ctx, callback) => {
 
-    // We can store new users in the users array for now
-    const users = []
-
     // receive the request event and get the user's details from it
     console.log(JSON.parse(event.body));
     const {
         name,
         email,
         track,
-        moblileTrack,
+        mobileTrack,
         price
     } = JSON.parse(event.body)
 
@@ -23,11 +20,9 @@ exports.handler = async(event, ctx, callback) => {
         username: name,
         email: email,
         track: track,
-        mobileTrack: moblileTrack,
+        mobileTrack: mobileTrack,
         price: price
     }
-
-    users.push(newUserDetails)
 
     // Send user back to the client
     return {
