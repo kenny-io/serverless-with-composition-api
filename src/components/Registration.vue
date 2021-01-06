@@ -34,7 +34,7 @@
         <option v-for="ticket in ticketOptions" :key="ticket" :value="ticket"> {{ ticket }} </option>
       </select>
 
-      <button @click="registerUser" class="btn" type="submit">Register</button>
+      <button @click.prevent="registerUser" class="btn" type="submit">Register</button>
     </form>
   </div>
   <div v-else>
@@ -48,7 +48,7 @@
 <script>
 import { reactive, ref, toRefs, watch, computed } from 'vue'
 export default {
-  setup(){
+  setup() {
     // reactive
     const formData = reactive({
       name: "",
@@ -66,8 +66,7 @@ export default {
     const isUserRegistered = ref(false)
 
     // method
-    const registerUser = e => {
-      e.preventDefault()
+    const registerUser = () => {
       fetch("/.netlify/functions/register", {
         method:"POST",
         body:JSON.stringify(formData)
@@ -79,13 +78,13 @@ export default {
       })
     }
   
-    watch(() =>formData.tickets, (currentValue) =>{
-      if(currentValue > 1 ) {
+    watch(() => formData.tickets, (currentValue) => {
+      if (currentValue > 1 ) {
         const totalPrice = computed(() => formData.price + 5)
         formData.price = totalPrice.value
       }
     })
-    return{
+    return {
       ...toRefs(formData),
       options,
       mobileTrackOptions,
