@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import { reactive, ref, toRefs, watch, computed } from "vue";
+import { reactive, ref, toRefs, watch } from "vue";
 export default {
   setup() {
     // reactive
@@ -78,11 +78,17 @@ export default {
       mobileTrack: "",
       tickets: 0,
       price: 0,
+      coupon: 3,
+      // selectedOption: ""
     });
+
+    const state = reactive({
+      options: ["Web", "Mobile", "AI"],
+      mobileTrackOptions: ["iOS", "Android", "Hybrid"],
+      ticketOptions: [1, 2, 3, 4, 5],
+    });
+
     // ref
-    const options = ref(["Web", "Mobile", "AI"]);
-    const mobileTrackOptions = ref(["iOS", "Android", "Hybrid"]);
-    const ticketOptions = ref([1, 2, 3, 4, 5]);
     const isUserRegistered = ref(false);
 
     // method
@@ -101,17 +107,16 @@ export default {
     watch(
       () => formData.tickets,
       (currentValue) => {
+        console.log(currentValue);
         if (currentValue > 1) {
-          const totalPrice = computed(() => formData.price + 5);
-          formData.price = totalPrice.value;
+          formData.price = formData.price + 5;
         }
       }
     );
+
     return {
       ...toRefs(formData),
-      options,
-      mobileTrackOptions,
-      ticketOptions,
+      ...toRefs(state),
       isUserRegistered,
       registerUser,
     };
