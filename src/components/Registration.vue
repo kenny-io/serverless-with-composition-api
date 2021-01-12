@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import { reactive, ref, toRefs, watch } from "vue";
+import { reactive, ref, toRefs, watch, computed } from "vue";
 export default {
   setup() {
     // reactive
@@ -79,7 +79,9 @@ export default {
       tickets: 0,
       price: 0,
       coupon: 3,
-      // selectedOption: ""
+      discountedPrice: computed(() => {
+        return formData.price - formData.coupon;
+      })
     });
 
     const state = reactive({
@@ -104,21 +106,19 @@ export default {
         });
     };
 
-    watch(
-      () => formData.tickets,
-      (currentValue) => {
-        console.log(currentValue);
-        if (currentValue > 1) {
-          formData.price = formData.price + 5;
-        }
+    watch(() => formData.tickets, (currentValue, oldValue) => {
+      console.log(oldValue);
+      console.log(currentValue);
+      if (currentValue > 1) {
+        formData.price = currentValue + 5;
       }
-    );
+    });
 
     return {
       ...toRefs(formData),
       ...toRefs(state),
       isUserRegistered,
-      registerUser,
+      registerUser
     };
   },
 };
